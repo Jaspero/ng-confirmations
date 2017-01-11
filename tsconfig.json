@@ -15,7 +15,7 @@
   },
   "files": [
     "index.ts",
-    "ng2-alerts.ts"
+    "ng2-confirmations.ts"
   ],
   "exclude": [
     "node_modules",
