@@ -57,11 +57,11 @@ Available settings:
 
 ```typescript
 export interface ConfirmSettings {
-    overlay?: boolean;
-    overlayClickToClose?: boolean;
-    showCloseButton?: boolean;
-    confirmText?: string;
-    declineText?: string;
+    overlay?: boolean; // Default: true
+    overlayClickToClose?: boolean; // Default: true
+    showCloseButton?: boolean; // Default: true
+    confirmText?: string; // Default: 'Yes'
+    declineText?: string; // Default: 'No'
 }
 ```
 
