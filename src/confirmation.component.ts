@@ -3,6 +3,7 @@ import {ResolveEmit} from './interfaces/resolve-emit';
 
 @Component({
     selector: 'jaspero-confirmation',
+    styleUrls: ['./confirmation.css'],
     template: `
         <div *ngIf="incomingData.overlay" class="overlay" (click)="overlayClick()"></div>
         <div class="wrapper">
