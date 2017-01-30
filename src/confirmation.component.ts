@@ -1,17 +1,11 @@
-import {Component, Injector} from '@angular/core';
+import {Component, Injector, trigger, style, state, transition, animate, NgZone} from '@angular/core';
 import {ResolveEmit} from './interfaces/resolve-emit';
 
 @Component({
     selector: 'jaspero-confirmation',
-    styleUrls: ['./confirmation.css'],
     template: `
-        <div *ngIf="incomingData.overlay" class="jaspero__overlay" (click)="overlayClick()"></div>
-        <div class="jaspero__dialog">
-            <div class="jaspero__dialog-close" *ngIf="incomingData.showCloseButton" (click)="resolve({closedWithOutResolving: 'closeClick'})">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
-                  <path d="M22 0C9.8 0 0 9.8 0 22s9.8 22 22 22 22-9.8 22-22S34.2 0 22 0zm3.2 22.4l7.5 7.5c.2.2.3.5.3.7s-.1.5-.3.7l-1.4 1.4c-.2.2-.5.3-.7.3-.3 0-.5-.1-.7-.3l-7.5-7.5c-.2-.2-.5-.2-.7 0l-7.5 7.5c-.2.2-.5.3-.7.3-.3 0-.5-.1-.7-.3l-1.4-1.4c-.2-.2-.3-.5-.3-.7s.1-.5.3-.7l7.5-7.5c.2-.2.2-.5 0-.7l-7.5-7.5c-.2-.2-.3-.5-.3-.7s.1-.5.3-.7l1.4-1.4c.2-.2.5-.3.7-.3s.5.1.7.3l7.5 7.5c.2.2.5.2.7 0l7.5-7.5c.2-.2.5-.3.7-.3.3 0 .5.1.7.3l1.4 1.4c.2.2.3.5.3.7s-.1.5-.3.7l-7.5 7.5c-.2.1-.2.5 0 .7z" fill="#FFF"/>
-                </svg>
-            </div>
+        <div *ngIf="incomingData.overlay" class="jaspero__overlay" [@overlayAn]="animationState" (click)="overlayClick()"></div>
+        <div class="jaspero__dialog" [@wrapperAn]="animationState">
             <div class="jaspero__dialog-title">
                 {{incomingData.title}}
             </div>
@@ -23,14 +17,34 @@ import {ResolveEmit} from './interfaces/resolve-emit';
                 <button class="primary" (click)="resolve({resolved: true})">{{incomingData.confirmText}}</button>
             </div>
         </div>
-    `
+    `,
+    styleUrls: ['./confirmation.css'],
+    animations: [
+        trigger('overlayAn', [
+            state('void', style({opacity: 0})),
+            state('leave', style({opacity: 0})),
+            state('enter', style({opacity: 1})),
+            transition('void => enter', animate('400ms cubic-bezier(.25,.8,.25,1)')),
+            transition('enter => leave', animate('400ms cubic-bezier(.25,.8,.25,1)'))
+        ]),
+        trigger('wrapperAn', [
+            state('void', style({opacity: 0, transform: 'scale(0.75, 0.75) translate(0, 0)'})),
+            state('leave', style({opacity: 0, transform: 'scale(0.75, 0.75) translate(0, 0)'})),
+            state('enter', style({opacity: 1, transform: 'scale(1, 1) translate(0, 0)'})),
+            transition('void => enter', animate('450ms cubic-bezier(.5, 1.4, .5, 1)')),
+            transition('enter => leave', animate('450ms cubic-bezier(.5, 1.4, .5, 1)'))
+        ])
+    ]
 })
 export class ConfirmationComponent {
     constructor(
-        private _injector: Injector
+        private _injector: Injector,
+        private _ngZone: NgZone
     ) {
         for (let key in this.incomingData) this.incomingData[key] = this._injector.get(key) || this.incomingData[key];
     }
+
+    animationState: string = 'enter';
 
     incomingData: any = {
         title: '',
@@ -45,11 +59,16 @@ export class ConfirmationComponent {
 
     overlayClick() {
         if (!this.incomingData.overlayClickToClose) return;
-        this.resolve({closedWithOutResolving: 'overlayClick'});
+        this.close('overlayClick')
+    }
+
+    close(type: string) {
+        this.animationState = 'leave';
+        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() => this.resolve({closedWithOutResolving: type})), 450));
     }
 
     resolve(how: ResolveEmit) {
-        console.log(this.incomingData.resolve);
-        this.incomingData.resolve.next(how);
+        this.animationState = 'leave';
+        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() =>  this.incomingData.resolve.next(how)), 450))
     }
 }
