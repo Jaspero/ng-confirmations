@@ -8,7 +8,6 @@
     justify-content: center;
     -ms-flex-align: center;
     align-items: center;
-    pointer-events: none;
     position: fixed;
     top: 0;
     right: 0;
@@ -19,12 +18,10 @@
 }
 
 .jaspero__overlay {
-    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 99;
     background-color: rgba(0,0,0,.54);
     transform: translateZ(0);
     opacity: 0;
@@ -134,6 +131,17 @@
     white-space: nowrap;
 }
 
+.jaspero__dialog-close {
+    position: absolute;
+    top: -21px;
+    right: -21px;
+    width: 30px;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 250ms ease;
+}
+
 .jaspero__dialog-actions button.default {
     color: #2196f3;
 }
@@ -154,8 +162,3 @@
 .jaspero__dialog-actions button.raised {
     box-shadow: 0 1px 5px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
 }
-
-:host(.success) .jaspero__dialog-icon {background: #17A398}
-:host(.error) .jaspero__dialog-icon {background: #D64550}
-:host(.warning) .jaspero__dialog-icon {background: #FFC857}
-:host(.info) .jaspero__dialog-icon {background: #8FBFE0}
