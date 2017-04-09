@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import { JasperoConfirmationsModule } from '@jaspero/ng2-confirmations';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     BrowserModule,
     FormsModule,
     HttpModule,
-    SimpleNotificationsModule.forRoot()
+    JasperoConfirmationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

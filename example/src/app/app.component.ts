@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NotificationsService } from 'angular2-notifications';
+import { ConfirmationService, ResolveEmit } from '@jaspero/ng2-confirmations';
 
 @Component({
   selector: 'app-root',
@@ -7,24 +7,11 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    constructor(private _service: NotificationsService) {}
-
-    public options = {
-        position: ["top", "left"],
-        timeOut: 0,
-        lastOnBottom: true,
-    };
+    constructor(private _confirmation: ConfirmationService) {}
 
     create() {
-        this._service.success(
-            'Some Title',
-            'Some Content',
-            {
-                showProgressBar: true,
-                pauseOnHover: false,
-                clickToClose: false,
-                maxLength: 10
-            }
-        )
+        this._confirmation.create('Do something?', 'You should really just do it.')
+        // The confirmation returns an Observable Subject which will notify you about the outcome
+            .subscribe((ans: ResolveEmit) => console.log(ans))
     }
 }
