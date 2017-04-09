@@ -1,5 +1,6 @@
-import {Component, Injector, trigger, style, state, transition, animate, NgZone} from '@angular/core';
+import {Component, Injector, NgZone} from '@angular/core';
 import {ResolveEmit} from './interfaces/resolve-emit';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'jaspero-confirmation',
