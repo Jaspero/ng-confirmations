@@ -21,7 +21,7 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
         this.settings = Object.assign({}, this.settings, settings);
     }
 
-    settings: ConfirmSettings = {
+    settings: ConfirmSettings | any = {
         overlay: true,
         overlayClickToClose: true,
         showCloseButton: true,
@@ -35,16 +35,16 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this._listener = this._service.confirmation$.subscribe(alert => {
+        this._listener = this._service.confirmation$.subscribe((alert: any) => {
             if (this._current) this._handleResolve();
 
             if (!alert.close) {
 
                 let settingsFinalAsArray = [],
-                    settingFinalAsObj: ConfirmSettings = {};
+                    settingFinalAsObj: any = {};
 
                 for (let key in this.settings) {
-                    let toUse = alert.override[key] !== undefined ? alert.override[key] : this.settings[key];
+                    let toUse: any = alert.override[key] !== undefined ? alert.override[key] : this.settings[key];
 
                     settingsFinalAsArray.push({key: key, value: toUse});
                     settingFinalAsObj[key] = toUse;
@@ -63,7 +63,7 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
                     factory = this._resolver.resolveComponentFactory(ConfirmationComponent),
                     component = factory.create(injector);
 
-                this._lastResolve = alert.resolve.subscribe(res => this._handleResolve(res));
+                this._lastResolve = alert.resolve.subscribe((res: any) => this._handleResolve(res));
 
                 this.compViewContainerRef.insert(component.hostView);
 

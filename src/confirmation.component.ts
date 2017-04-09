@@ -45,7 +45,7 @@ export class ConfirmationComponent {
         for (let key in this.incomingData) this.incomingData[key] = this._injector.get(key) || this.incomingData[key];
     }
 
-    animationState: string = 'enter';
+    animationState = 'enter';
 
     incomingData: any = {
         title: '',
