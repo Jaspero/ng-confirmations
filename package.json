@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/ng2-confirmations",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A confirmation library for Angular 2",
   "scripts": {
     "build": "ngc -p tsconfig.json",
@@ -23,9 +23,7 @@
   "bugs": {
     "url": "https://github.com/Jaspero/ng2-confirmations/issues"
   },
-  "main": "bundles/ng2-confirmations.umd.js",
-  "module": "index.js",
-  "typings": "index.d.ts",
+  "main": "./dist/index.js",
   "homepage": "https://github.com/Jaspero/ng2-confirmations",
   "peerDependencies": {
     "@angular/core": "^4.0.1",
