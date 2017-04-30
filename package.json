@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/ng2-confirmations",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A confirmation library for Angular 2",
   "scripts": {
     "build": "ngc -p tsconfig.json",
