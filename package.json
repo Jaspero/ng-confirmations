@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/ng2-confirmations",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "A confirmation library for Angular 2",
   "repository": {
     "type": "git",
@@ -16,17 +16,17 @@
   "bugs": {
     "url": "https://github.com/Jaspero/ng2-confirmations/issues"
   },
-  "main": "./confirmations.umd.js",
-  "module": "./confirmations.es5.js",
-  "es2015": "./confirmations.js",
-  "typings": "./confirmations.d.ts",
+  "main": "./ng2-confirmations.umd.js",
+  "module": "./ng2-confirmations.es5.js",
+  "es2015": "./ng2-confirmations.js",
+  "typings": "./ng2-confirmations.d.ts",
   "homepage": "https://github.com/Jaspero/ng2-confirmations",
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
   },
   "scripts": {
-    "clean": "rimraf out-tsc dist",
+    "clean": "rimraf out-tsc dist \"src/lib/**/*.js\" \"src/lib/**/*.map\"",
     "prebuild": "npm run clean",
     "build": "node build.js",
     "build-demo": "tsc -p src/demo/",

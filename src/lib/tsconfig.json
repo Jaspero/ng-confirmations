@@ -15,8 +15,8 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "confirmations.js",
-    "flatModuleId": "confirmations",
+    "flatModuleOutFile": "ng2-confirmations.js",
+    "flatModuleId": "@jaspero/ng2-confirmations",
     "genDir": "../../out-tsc/lib-gen-dir/"
   }
 }
