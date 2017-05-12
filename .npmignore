@@ -1,20 +1,11 @@
-# Node
-node_modules/*
-npm-debug.log
-
-# DO NOT IGNORE TYPESCRIPT FILES FOR NPM
-# TypeScript
-# *.js
-# *.map
-# *.d.ts
-
-# JetBrains
 .idea
-.project
-.settings
-.idea/*
-*.iml
-
-example
-tests
+bs-config.json
+build.js
+inline-resources.js
 index.ts
+node_modules
+out-tsc
+src
+.gitignore
+.npmignore
+.travis.yml
