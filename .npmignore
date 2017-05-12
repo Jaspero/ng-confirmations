@@ -17,5 +17,5 @@ npm-debug.log
 
 example
 tests
-src/**/.ts
+src/**/**.ts
 index.ts
