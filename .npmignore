@@ -6,7 +6,7 @@ npm-debug.log
 # TypeScript
 # *.js
 # *.map
-**.d.ts
+# *.d.ts
 
 # JetBrains
 .idea
@@ -17,5 +17,4 @@ npm-debug.log
 
 example
 tests
-src/**/**.ts
 index.ts
