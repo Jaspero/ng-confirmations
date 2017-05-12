@@ -3,7 +3,7 @@
     "baseDir": "src/demo",
     "routes": {
       "/node_modules": "node_modules",
-      "/confirmations": "src/lib"
+      "/@jaspero/ng2-confirmations": "src/lib"
     }
   }
 }
