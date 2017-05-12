@@ -19,3 +19,4 @@ example
 tests
 src
 index.ts
+!dist/src
