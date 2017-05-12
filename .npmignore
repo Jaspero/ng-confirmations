@@ -6,7 +6,7 @@ npm-debug.log
 # TypeScript
 # *.js
 # *.map
-# *.d.ts
+**.d.ts
 
 # JetBrains
 .idea
