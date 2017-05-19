@@ -3,6 +3,12 @@
 # NG2 Confirmations
 An easy to use alert library for Angular 2.
 
+```
+npm install --save @jaspero/ng2-confirmations
+```
+
+A demo can be found [here](https://jaspero.co/resources/projects/ng-confirmations)
+
 ## Setup
 Import `JasperoConfirmationsModule` in your `@NgModule`: 
 
