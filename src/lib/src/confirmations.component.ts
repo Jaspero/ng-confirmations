@@ -35,7 +35,7 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this._listener = this._service.confirmation$.subscribe((alert: any) => {
+	    this._listener = this._service.confirmation$.subscribe((alert: any) => {
             if (this._current) this._handleResolve();
 
             if (!alert.close) {
@@ -78,6 +78,6 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this._listener.unsubscribe();
+	    if (this._listener) this._listener.unsubscribe();
     }
 }
