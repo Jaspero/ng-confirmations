@@ -30,7 +30,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
             justify-content: center;
             -ms-flex-align: center;
             align-items: center;
-            pointer-events: none;
             position: fixed;
             top: 0;
             right: 0;
