@@ -1,9 +1,11 @@
-import {Component, Injector, NgZone} from '@angular/core';
-import {ResolveEmit} from './interfaces/resolve-emit';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Component, Injector, NgZone, ViewEncapsulation } from '@angular/core';
+import { ResolveEmit } from './interfaces/resolve-emit';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'jaspero-confirmation',
+    encapsulation: ViewEncapsulation.None,
+    host: { 'class': 'jaspero__confirmation' },
     template: `
         <div *ngIf="incomingData.overlay" class="jaspero__overlay" [@overlayAn]="animationState" (click)="overlayClick()"></div>
         <div class="jaspero__dialog" [@wrapperAn]="animationState">
@@ -20,7 +22,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         </div>
     `,
     styles: [`
-        :host {
+        .jaspero__confirmation {
             display: block;
             display: -ms-flexbox;
             display: flex;
@@ -180,16 +182,16 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     `],
     animations: [
         trigger('overlayAn', [
-            state('void', style({opacity: 0})),
-            state('leave', style({opacity: 0})),
-            state('enter', style({opacity: 1})),
+            state('void', style({ opacity: 0 })),
+            state('leave', style({ opacity: 0 })),
+            state('enter', style({ opacity: 1 })),
             transition('void => enter', animate('400ms cubic-bezier(.25,.8,.25,1)')),
             transition('enter => leave', animate('400ms cubic-bezier(.25,.8,.25,1)'))
         ]),
         trigger('wrapperAn', [
-            state('void', style({opacity: 0, transform: 'scale(0.75, 0.75) translate(0, 0)'})),
-            state('leave', style({opacity: 0, transform: 'scale(0.75, 0.75) translate(0, 0)'})),
-            state('enter', style({opacity: 1, transform: 'scale(1, 1) translate(0, 0)'})),
+            state('void', style({ opacity: 0, transform: 'scale(0.75, 0.75) translate(0, 0)' })),
+            state('leave', style({ opacity: 0, transform: 'scale(0.75, 0.75) translate(0, 0)' })),
+            state('enter', style({ opacity: 1, transform: 'scale(1, 1) translate(0, 0)' })),
             transition('void => enter', animate('450ms cubic-bezier(.5, 1.4, .5, 1)')),
             transition('enter => leave', animate('450ms cubic-bezier(.5, 1.4, .5, 1)'))
         ])
@@ -223,11 +225,11 @@ export class ConfirmationComponent {
 
     close(type: string) {
         this.animationState = 'leave';
-        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() => this.resolve({closedWithOutResolving: type})), 450));
+        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() => this.resolve({ closedWithOutResolving: type })), 450));
     }
 
     resolve(how: ResolveEmit) {
         this.animationState = 'leave';
-        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() =>  this.incomingData.resolve.next(how)), 450))
+        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() => this.incomingData.resolve.next(how)), 450))
     }
 }
