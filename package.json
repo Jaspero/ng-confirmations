@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/ng2-confirmations",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A confirmation library for Angular 2",
   "repository": {
     "type": "git",

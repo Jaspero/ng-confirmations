@@ -1,6 +1,6 @@
 import {Component, Injector, NgZone} from '@angular/core';
-import {ResolveEmit} from './interfaces/resolve-emit';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {ResolveEmit} from './interfaces/resolve-emit';
 
 @Component({
     selector: 'jaspero-confirmation',
@@ -200,7 +200,13 @@ export class ConfirmationComponent {
         private _injector: Injector,
         private _ngZone: NgZone
     ) {
-        for (let key in this.incomingData) this.incomingData[key] = this._injector.get(key) || this.incomingData[key];
+        for (const key in this.incomingData) {
+            const fromInjector = this._injector.get(key);
+
+            if (fromInjector !== undefined) {
+                this.incomingData[key] = fromInjector;
+            }
+        }
     }
 
     animationState = 'enter';
@@ -217,17 +223,32 @@ export class ConfirmationComponent {
     };
 
     overlayClick() {
-        if (!this.incomingData.overlayClickToClose) return;
+        if (!this.incomingData.overlayClickToClose) {
+            return;
+        }
+
         this.close('overlayClick')
     }
 
     close(type: string) {
         this.animationState = 'leave';
-        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() => this.resolve({closedWithOutResolving: type})), 450));
+        this._ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this._ngZone.run(() => {
+                    this.resolve({closedWithOutResolving: type});
+                });
+            }, 450);
+        });
     }
 
     resolve(how: ResolveEmit) {
         this.animationState = 'leave';
-        this._ngZone.runOutsideAngular(() => setTimeout(() => this._ngZone.run(() =>  this.incomingData.resolve.next(how)), 450))
+        this._ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this._ngZone.run(() =>  {
+                    this.incomingData.resolve.next(how);
+                });
+            }, 450);
+        });
     }
 }
