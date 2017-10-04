@@ -18,7 +18,7 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
     @ViewChild('comp', {read: ViewContainerRef}) compViewContainerRef: ViewContainerRef;
 
     @Input() set defaultSettings(settings: ConfirmSettings) {
-        this.settings = Object.assign({}, this.settings, settings);
+        this.settings = {...this.settings, ...settings};
     }
 
     settings: ConfirmSettings | any = {
@@ -35,35 +35,37 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-	    this._listener = this._service.confirmation$.subscribe((alert: any) => {
-            if (this._current) this._handleResolve();
+        this._listener = this._service.confirmation$.subscribe((alert: any) => {
+            if (this._current) {
+                this._handleResolve();
+            }
 
             if (!alert.close) {
 
-                let settingsFinalAsArray = [],
-                    settingFinalAsObj: any = {};
+                const settingsFinalAsArray = [];
+                const settingFinalAsObj: any = {};
 
-                for (let key in this.settings) {
-                    let toUse: any = alert.override[key] !== undefined ? alert.override[key] : this.settings[key];
+                for (const key in this.settings) {
+                    const toUse = alert.override[key] !== undefined ? alert.override[key] : this.settings[key];
 
                     settingsFinalAsArray.push({key: key, value: toUse});
                     settingFinalAsObj[key] = toUse;
                 }
 
-                let inputProviders = [
-                        {key: 'message', value: alert.message},
-                        {key: 'title', value: alert.title},
-                        {key: 'resolve', value: alert.resolve},
-                        ...settingsFinalAsArray
-                    ].map((input) => {
-                        return {provide: input.key, useValue: input.value};
-                    }),
-                    resolvedInputs = ReflectiveInjector.resolve(inputProviders),
-                    injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.compViewContainerRef.parentInjector),
-                    factory = this._resolver.resolveComponentFactory(ConfirmationComponent),
-                    component = factory.create(injector);
+                const inputProviders = [
+                    {key: 'message', value: alert.message},
+                    {key: 'title', value: alert.title},
+                    {key: 'resolve', value: alert.resolve$},
+                    ...settingsFinalAsArray
+                ].map((input) => {
+                    return {provide: input.key, useValue: input.value};
+                });
+                const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
+                const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.compViewContainerRef.parentInjector);
+                const factory = this._resolver.resolveComponentFactory(ConfirmationComponent);
+                const component = factory.create(injector);
 
-                this._lastResolve = alert.resolve.subscribe((res: any) => this._handleResolve(res));
+                this._lastResolve = alert.resolve$.subscribe((res: any) => this._handleResolve(res));
 
                 this.compViewContainerRef.insert(component.hostView);
 
@@ -78,6 +80,8 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-	    if (this._listener) this._listener.unsubscribe();
+        if (this._listener) {
+            this._listener.unsubscribe();
+        }
     }
 }

@@ -6,12 +6,17 @@ import {ResolveEmit} from './interfaces/resolve-emit';
 
 @Injectable()
 export class ConfirmationService {
-    confirmation$: Subject<ConfirmEmit> = new Subject();
+    confirmation$ = new Subject<ConfirmEmit>();
 
-    create(title: string, message: string, settingsOverrides: ConfirmSettings = {}) {
-        let resolve$: Subject<ResolveEmit> = new Subject();
+    create(title: string, message: string, override: ConfirmSettings = {}) {
+        const resolve$ = new Subject<ResolveEmit>();
 
-        this.confirmation$.next({title: title, message: message, resolve: resolve$, override: settingsOverrides});
+        this.confirmation$.next({
+            title,
+            message,
+            resolve$,
+            override
+        });
 
         return resolve$;
     }
