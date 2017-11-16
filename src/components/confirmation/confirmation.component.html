@@ -1,13 +1,17 @@
-<div *ngIf="incomingData.overlay" class="jaspero__overlay" [@overlayAn]="animationState" (click)="overlayClick()"></div>
-<div class="jaspero__dialog" [@wrapperAn]="animationState">
-    <div class="jaspero__dialog-title">
-        {{incomingData.title}}
+<div *ngIf="incomingData.overlay" class="jaspero__confirmation_overlay" [@overlayAn]="animationState" (click)="overlayClick()"></div>
+<div class="jaspero__confirmation_dialog" [@wrapperAn]="animationState">
+    <div class="jaspero__confirmation_dialog-title">
+        <jaspero-variable-content [isTemplate]="incomingData.titleIsTemplate" [item]="incomingData.title"></jaspero-variable-content>
     </div>
-    <div class="jaspero__dialog-content">
-        {{incomingData.message}}
+    <div class="jaspero__confirmation_dialog-content">
+        <jaspero-variable-content [isTemplate]="incomingData.messageIsTemplate" [item]="incomingData.message"></jaspero-variable-content>
     </div>
-    <div class="jaspero__dialog-actions">
-        <button class="default" (click)="resolve({resolved: false})">{{incomingData.declineText}}</button>
-        <button class="primary" (click)="resolve({resolved: true})">{{incomingData.confirmText}}</button>
+    <div class="jaspero__confirmation_dialog-actions">
+        <button class="default" (click)="resolve({resolved: false})">
+            <jaspero-variable-content [isTemplate]="incomingData.declineTextIsTemplate" [item]="incomingData.declineText"></jaspero-variable-content>
+        </button>
+        <button class="primary" (click)="resolve({resolved: true})">
+            <jaspero-variable-content [isTemplate]="incomingData.confirmTextIsTemplate" [item]="incomingData.confirmText"></jaspero-variable-content>
+        </button>
     </div>
 </div>

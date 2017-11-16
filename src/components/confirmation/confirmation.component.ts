@@ -1,4 +1,4 @@
-import {Component, Injector, NgZone} from '@angular/core';
+import {Component, HostBinding, NgZone, ViewEncapsulation} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ResolveEmit} from '../../interfaces/resolve-emit';
 
@@ -6,6 +6,7 @@ import {ResolveEmit} from '../../interfaces/resolve-emit';
     selector: 'jaspero-confirmation',
     templateUrl: './confirmation.component.html',
     styleUrls: ['./confirmation.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     animations: [
         trigger('overlayAn', [
             state('void', style({opacity: 0})),
@@ -25,29 +26,25 @@ import {ResolveEmit} from '../../interfaces/resolve-emit';
 })
 export class ConfirmationComponent {
     constructor(
-        private _injector: Injector,
         private _ngZone: NgZone
-    ) {
-        for (const key in this.incomingData) {
-            const fromInjector = this._injector.get(key);
+    ) {}
 
-            if (fromInjector !== undefined) {
-                this.incomingData[key] = fromInjector;
-            }
-        }
-    }
+    @HostBinding('class.jaspero__confirmation') true;
 
     animationState = 'enter';
-
     incomingData: any = {
         title: '',
+        titleIsTemplate: false,
         message: '',
+        messageIsTemplate: false,
         overlay: true,
         overlayClickToClose: true,
         showCloseButton: true,
         confirmText: 'Yes',
+        confirmTextIsTemplate: false,
         declineText: 'No',
-        resolve: null
+        declineTextIsTemplate: false,
+        resolve$: null
     };
 
     overlayClick() {
@@ -55,7 +52,7 @@ export class ConfirmationComponent {
             return;
         }
 
-        this.close('overlayClick')
+        this.close('overlayClick');
     }
 
     close(type: string) {
@@ -74,7 +71,7 @@ export class ConfirmationComponent {
         this._ngZone.runOutsideAngular(() => {
             setTimeout(() => {
                 this._ngZone.run(() =>  {
-                    this.incomingData.resolve.next(how);
+                    this.incomingData.resolve$.next(how);
                 });
             }, 450);
         });

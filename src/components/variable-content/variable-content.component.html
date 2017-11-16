@@ -1,0 +1,6 @@
+<div *ngIf="isTemplate else regular">
+    <ng-container *ngTemplateOutlet="item"></ng-container>
+</div>
+<ng-template #regular>
+    <div [innerHTML]="item"></div>
+</ng-template>

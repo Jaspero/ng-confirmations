@@ -1,4 +1,15 @@
-import {Component, OnInit, ViewContainerRef, OnDestroy, Input, ReflectiveInjector, ComponentFactoryResolver, ViewChild} from '@angular/core';
+import {
+    Component,
+    ComponentFactoryResolver,
+    Injector,
+    Input,
+    OnDestroy,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 import {ConfirmationService} from '../../services/confirmations.service';
 import {ConfirmationComponent} from '../confirmation/confirmation.component';
 import {ConfirmSettings} from '../../interfaces/confirm-settings';
@@ -12,7 +23,8 @@ import {ResolveEmit} from '../../interfaces/resolve-emit';
 export class ConfirmationsComponent implements OnInit, OnDestroy {
     constructor(
         private _service: ConfirmationService,
-        private _resolver: ComponentFactoryResolver
+        private _resolver: ComponentFactoryResolver,
+        private _domSanitize: DomSanitizer
     ) { }
 
     @ViewChild('comp', {read: ViewContainerRef}) compViewContainerRef: ViewContainerRef;
@@ -35,43 +47,48 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this._listener = this._service.confirmation$.subscribe((alert: any) => {
+        this._listener = this._service.confirmation$.subscribe((confirmation: any) => {
             if (this._current) {
                 this._handleResolve();
             }
 
-            if (!alert.close) {
-
-                const settingsFinalAsArray = [];
-                const settingFinalAsObj: any = {};
-
-                for (const key in this.settings) {
-                    const toUse = alert.override[key] !== undefined ? alert.override[key] : this.settings[key];
-
-                    settingsFinalAsArray.push({key: key, value: toUse});
-                    settingFinalAsObj[key] = toUse;
-                }
-
-                const inputProviders = [
-                    {key: 'message', value: alert.message},
-                    {key: 'title', value: alert.title},
-                    {key: 'resolve', value: alert.resolve$},
-                    ...settingsFinalAsArray
-                ].map((input) => {
-                    return {provide: input.key, useValue: input.value};
-                });
-                const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-                const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.compViewContainerRef.parentInjector);
-                const factory = this._resolver.resolveComponentFactory(ConfirmationComponent);
-                const component = factory.create(injector);
-
-                this._lastResolve = alert.resolve$.subscribe((res: any) => this._handleResolve(res));
-
-                this.compViewContainerRef.insert(component.hostView);
-
-                this._current = component;
+            if (confirmation.close) {
+                return;
             }
+
+            const settingsFinal = {};
+
+            for (const key in this.settings) {
+                if (this.settings.hasOwnProperty(key)) {
+                    settingsFinal[key] = confirmation.override[key] !== undefined ? confirmation.override[key] : this.settings[key];
+                }
+            }
+
+            const injector = Injector.create([], this.compViewContainerRef.parentInjector);
+            const factory = this._resolver.resolveComponentFactory(ConfirmationComponent);
+            const component = factory.create(injector);
+
+            component.instance.incomingData = {
+                ...settingsFinal,
+                ...this._buildItemTemplate('message', confirmation.message),
+                ...this._buildItemTemplate('title', confirmation.title),
+                ...this._buildItemTemplate('confirmText', confirmation.override.confirmText),
+                ...this._buildItemTemplate('declineText', confirmation.override.declineText),
+                resolve$: confirmation.resolve$
+            };
+
+            this._lastResolve = confirmation.resolve$.subscribe((res: any) => this._handleResolve(res));
+
+            this.compViewContainerRef.insert(component.hostView);
+
+            this._current = component;
         });
+    }
+
+    ngOnDestroy() {
+        if (this._listener) {
+            this._listener.unsubscribe();
+        }
     }
 
     private _handleResolve(res?: ResolveEmit) {
@@ -79,9 +96,16 @@ export class ConfirmationsComponent implements OnInit, OnDestroy {
         this._lastResolve.unsubscribe();
     }
 
-    ngOnDestroy() {
-        if (this._listener) {
-            this._listener.unsubscribe();
+    private _buildItemTemplate(key: string, value: any) {
+
+        if (!value) {
+            return {};
+        }
+
+        if (value instanceof TemplateRef) {
+            return {[key]: value, [`${key}IsTemplate`]: true};
+        } else {
+            return {[key]: this._domSanitize.bypassSecurityTrustHtml(value)};
         }
     }
 }

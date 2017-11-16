@@ -42,7 +42,7 @@ You need to import the `ConfirmationService` in your component:
 constructor(private _confirmation: ConfirmationService) {}
 ```
 
-Then use the `create(title: string, message: string, settings: ConfirmSettings)` method to initiate thr confirmation modal.
+Then use the `create(title: any, message: any, settings: ConfirmSettings)` method to initiate the confirmation modal.
 
 ```typescript
 open() {
@@ -84,14 +84,18 @@ export interface ConfirmSettings {
     overlay?: boolean; // Default: true
     overlayClickToClose?: boolean; // Default: true
     showCloseButton?: boolean; // Default: true
-    confirmText?: string; // Default: 'Yes'
-    declineText?: string; // Default: 'No'
+    confirmText?: string | TemplateRef; // Default: 'Yes'
+    declineText?: string | TemplateRef; // Default: 'No'
 }
 ```
 
 You can provide the settings as input to the `<jaspero-confirmations></jaspero-confirmations>` component.
 Making the settings default for each created alert. However you can also override the settings by
 passing them in the `create()` method.
+
+**Note:**
+
+The `title`, `message`, `confirmText` and `declineText` properties can all be either a string an html string or a TemplateRef.
 
 ### FAQ
 

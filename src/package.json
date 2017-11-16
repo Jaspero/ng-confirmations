@@ -17,10 +17,10 @@
   "bugs": {
     "url": "https://github.com/Jaspero/ng-confirmations/issues"
   },
-  "main": "ng-confirmationsumd.js",
-  "module": "ng-confirmationsjs",
-  "jsnext:main": "ng-confirmationsjs",
-  "typings": "ng-confirmationsd.ts",
+  "main": "ng-confirmations.umd.js",
+  "module": "ng-confirmations.js",
+  "jsnext:main": "ng-confirmations.js",
+  "typings": "ng-confirmations.d.ts",
   "peerDependencies": {
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
