@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewContainerRef, OnDestroy, Input, ReflectiveInjector, ComponentFactoryResolver, ViewChild} from '@angular/core';
-import {ConfirmationService} from './confirmations.service';
-import {ConfirmationComponent} from './confirmation.component';
-import {ConfirmSettings} from './interfaces/confirm-settings';
-import {ResolveEmit} from './interfaces/resolve-emit';
+import {ConfirmationService} from '../../services/confirmations.service';
+import {ConfirmationComponent} from '../confirmation/confirmation.component';
+import {ConfirmSettings} from '../../interfaces/confirm-settings';
+import {ResolveEmit} from '../../interfaces/resolve-emit';
 
 @Component({
     selector: 'jaspero-confirmations',

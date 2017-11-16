@@ -1,9 +1,11 @@
 {
   "server": {
-    "baseDir": "src/demo",
+    "baseDir": "src",
     "routes": {
-      "/node_modules": "node_modules",
-      "/@jaspero/ng2-confirmations": "src/lib"
+      "/": "playground",
+      "/node_modules/": "node_modules",
+      "/dist/": "dist",
+      "/.playground": ".playground"
     }
   }
 }

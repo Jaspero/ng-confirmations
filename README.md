@@ -1,13 +1,18 @@
-[![Build Status](https://travis-ci.org/Jaspero/ng2-confirmations.svg?branch=master)](https://travis-ci.org/jaspero/ng2-confirmations)
-[![NPM Version](https://img.shields.io/npm/v/@jaspero/ng2-confirmations.svg)](https://www.npmjs.com/package/@jaspero/ng2-confirmations)
-# NG2 Confirmations
-An easy to use alert library for Angular 2.
+[![Build Status](https://travis-ci.org/Jaspero/ng-confirmations.svg?branch=master)](https://travis-ci.org/jaspero/ng-confirmations)
+[![NPM Version](https://img.shields.io/npm/v/@jaspero/ng-confirmations.svg)](https://www.npmjs.com/package/@jaspero/ng-confirmations)
 
-```
-npm install --save @jaspero/ng2-confirmations
-```
+# NG Confirmations
+An easy to use alert library for Angular.
 
 A demo can be found [here](https://jaspero.co/resources/projects/ng-confirmations)
+
+## Installation
+
+To install this library, run:
+
+```bash
+$ npm install --save @jaspero/ng-confirmations
+```
 
 ## Setup
 Import `JasperoConfirmationsModule` in your `@NgModule`: 
@@ -98,3 +103,20 @@ Yes AoT is supported.
 
 No, if none was provided the defaults are used. 
 
+## Development
+
+To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
+
+```bash
+$ npm run build
+```
+
+To lint all `*.ts` files:
+
+```bash
+$ npm run lint
+```
+
+## License
+
+MIT © [Jaspero co.](mailto:info@jaspero.co)

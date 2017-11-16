@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
-import {ConfirmSettings} from './interfaces/confirm-settings';
-import {ConfirmEmit} from './interfaces/confirm-emit';
-import {ResolveEmit} from './interfaces/resolve-emit';
+import {ConfirmSettings} from '../interfaces/confirm-settings';
+import {ConfirmEmit} from '../interfaces/confirm-emit';
+import {ResolveEmit} from '../interfaces/resolve-emit';
 
 @Injectable()
 export class ConfirmationService {

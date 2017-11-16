@@ -1,0 +1,13 @@
+<div *ngIf="incomingData.overlay" class="jaspero__overlay" [@overlayAn]="animationState" (click)="overlayClick()"></div>
+<div class="jaspero__dialog" [@wrapperAn]="animationState">
+    <div class="jaspero__dialog-title">
+        {{incomingData.title}}
+    </div>
+    <div class="jaspero__dialog-content">
+        {{incomingData.message}}
+    </div>
+    <div class="jaspero__dialog-actions">
+        <button class="default" (click)="resolve({resolved: false})">{{incomingData.declineText}}</button>
+        <button class="primary" (click)="resolve({resolved: true})">{{incomingData.confirmText}}</button>
+    </div>
+</div>

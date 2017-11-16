@@ -1,0 +1,31 @@
+{
+  "name": "@jaspero/ng-confirmations",
+  "version": "0.4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jaspero/ng-confirmations"
+  },
+  "author": {
+    "name": "Jaspero co.",
+    "email": "info@jaspero.co"
+  },
+  "keywords": [
+    "angular",
+    "alerts"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jaspero/ng-confirmations/issues"
+  },
+  "main": "ng-confirmationsumd.js",
+  "module": "ng-confirmationsjs",
+  "jsnext:main": "ng-confirmationsjs",
+  "typings": "ng-confirmationsd.ts",
+  "peerDependencies": {
+    "@angular/animations": "^5.0.0",
+    "@angular/common": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}
