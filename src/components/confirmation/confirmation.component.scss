@@ -1,56 +1,52 @@
 .jaspero__confirmation {
   display: block;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: column;
-  flex-flow: column;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: center;
-  align-items: center;
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
-  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 108;
 
   &_overlay {
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
     background-color: rgba(0,0,0,.54);
-    transform: translateZ(0);
     opacity: 0;
     transition: all .5s cubic-bezier(.35,0,.25,1);
     position: fixed;
     z-index: 109;
+    width: 100%;
+    height: 100%;
+
+    &.active {
+      opacity: 1;
+    }
   }
 
   &_dialog {
-    min-width: 350px;
-    max-width: 50%;
+    max-width: 350px;
+    width: 100%;
+    display: table;
     max-height: 50%;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-flow: column;
-    flex-flow: column;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
     z-index: 110;
     outline: none;
     border-radius: 2px;
     opacity: 0;
     box-shadow: 0 7px 9px -4px rgba(0,0,0,.2), 0 14px 21px 2px rgba(0,0,0,.14), 0 5px 26px 4px rgba(0,0,0,.12);
-    -ms-transform: scale(.9,.85);
-    transform: scale(.9,.85);
-    -ms-transform-origin: center center;
-    transform-origin: center center;
-    transition: opacity .4s cubic-bezier(.25,.8,.25,1),transform .4s cubic-bezier(.25,.8,.25,1) .05s;
-    will-change: opacity,transform;
+    transition: opacity .4s cubic-bezier(.25,.8,.25,1);
     background-color: #fff;
     color: rgba(0, 0, 0, .87);
+
+    &.active {
+      opacity: 1;
+    }
 
     &-title {
       font-size: 24px;

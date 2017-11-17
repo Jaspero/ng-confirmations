@@ -1,5 +1,5 @@
-<div *ngIf="incomingData.overlay" class="jaspero__confirmation_overlay" [@overlayAn]="animationState" (click)="overlayClick()"></div>
-<div class="jaspero__confirmation_dialog" [@wrapperAn]="animationState">
+<div *ngIf="incomingData.overlay" class="jaspero__confirmation_overlay" [class.active]="animationState === 'enter'" (click)="overlayClick()"></div>
+<div class="jaspero__confirmation_dialog" [class.active]="animationState === 'enter'" >
     <div class="jaspero__confirmation_dialog-title">
         <jaspero-variable-content [isTemplate]="incomingData.titleIsTemplate" [item]="incomingData.title"></jaspero-variable-content>
     </div>
