@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/ng-confirmations",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "An easy to use alert library for Angular",
   "scripts": {
     "build": "gulp build",
