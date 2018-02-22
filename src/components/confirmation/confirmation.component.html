@@ -10,7 +10,7 @@
         <button class="default" (click)="resolve({resolved: false})">
             <jaspero-variable-content [isTemplate]="incomingData.declineTextIsTemplate" [item]="incomingData.declineText"></jaspero-variable-content>
         </button>
-        <button class="primary" (click)="resolve({resolved: true})">
+        <button class="primary" (click)="resolve({resolved: true})" #focus>
             <jaspero-variable-content [isTemplate]="incomingData.confirmTextIsTemplate" [item]="incomingData.confirmText"></jaspero-variable-content>
         </button>
     </div>

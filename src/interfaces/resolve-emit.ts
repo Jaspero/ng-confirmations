@@ -1,4 +1,4 @@
 export interface ResolveEmit {
-    resolved?: boolean;
-    closedWithOutResolving?: string;
+  resolved?: boolean;
+  closedWithOutResolving?: string;
 }
