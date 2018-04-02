@@ -4,7 +4,7 @@
 # NG Confirmations
 An easy to use alert library for Angular.
 
-A demo can be found [here](https://jaspero.co/resources/projects/ng-confirmations)
+A demo can be found [here](https://stackblitz.com/edit/jaspero-ng-confirmations)
 
 ## Installation
 
