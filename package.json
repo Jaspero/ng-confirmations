@@ -1,6 +1,6 @@
 {
   "name": "@jaspero/ng-confirmations",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "An easy to use alert library for Angular",
   "scripts": {
     "build": "gulp build",
@@ -12,7 +12,8 @@
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "lite": "lite-server",
     "playground:build": "tsc -p playground -w",
-    "playground": "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\""
+    "playground": "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\"",
+    "publish": "npm run build && npm publish dist"
   },
   "repository": {
     "type": "git",
